@@ -1,1 +1,2 @@
-#개인 프로젝트 - 가구 쇼핑몰
+# furniture-store-frontend
+개인프로젝트 - 가구 쇼핑몰
