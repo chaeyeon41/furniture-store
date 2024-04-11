@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Header from "../../components/main/Header";
 import axios from 'axios';
 
 const MainPage = () => {
@@ -16,11 +15,8 @@ const MainPage = () => {
     // }, []);
 
     return (
-        <div>
-            <Header />
-            <div className="common-container">
+        <div className="common-container">
 
-            </div>
         </div>
     )
 }

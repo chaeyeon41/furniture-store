@@ -1,13 +1,14 @@
-import MyForm from "../../components/user/MyForm";
+import React from "react";
 import MyPageLayout from "../../components/user/MyPageLayout";
-const MyPage = () => {
+
+const SalesHistoryPage = () => {
     return (
         <div className="common-container">
             <MyPageLayout>
-
+                판매 이력 페이지야!
             </MyPageLayout>
         </div>
     )
 }
 
-export default MyPage;
+export default SalesHistoryPage;
