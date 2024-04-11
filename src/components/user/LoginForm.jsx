@@ -7,14 +7,6 @@ const LoginForm = () => {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
 
-    const onChange = (e, key) => {
-        if (key === 'id') {
-            setId(e.target.value);
-        } else if (key === 'password') {
-            setPassword(e.target.value);
-        }
-    };
-
     return (
         <div className="auth-form-container">
             <div className="auth-form">
@@ -24,7 +16,7 @@ const LoginForm = () => {
                         type="text"
                         key={'id'}
                         placeholder="아이디"
-                        onChange={onChange}
+                        onChange={(e) => setId(e.target.value)}
                     />
                 </div>
                 <div className="input-form">
@@ -33,7 +25,7 @@ const LoginForm = () => {
                         type="password"
                         placeholder="비밀번호"
                         key={'password'}
-                        onChange={onChange}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <div className="auth-button">

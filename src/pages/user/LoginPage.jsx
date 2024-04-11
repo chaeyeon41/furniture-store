@@ -4,9 +4,11 @@ import LoginForm from "../../components/user/LoginForm";
 
 const LoginPage = () => {
     return (
-        <div className="common-container">
+        <div>
             <Header />
-            <LoginForm />
+            <div className="common-container">
+                <LoginForm />
+            </div>
         </div>
     )
 }

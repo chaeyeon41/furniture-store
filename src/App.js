@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import './App.css';
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/main/MainPage";
 import LoginPage from "./pages/user/LoginPage";
 import SignUpPage from "./pages/user/SignUpPage";
+import MyPage from "./pages/user/MyPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </div>
   );
