@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import styled from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
@@ -39,12 +40,35 @@ const StyledMenuItemText = styled.div`
 
 const Header = () => {
 
-    const [isLogin, setIsLogin] = useState(true);
     const location = useLocation();
-    const navigate = useNavigate(); // useNavigate 훅 사용
+    const navigate = useNavigate();
 
+    const [isLogin, setIsLogin] = useState(false);
 
     const [anchorEl, setAnchorEl] = useState(null);
+
+    useEffect(() => {
+        checkLoginStatus();
+    }, []);
+
+    const checkLoginStatus = async () => {
+        try {
+            // "/auth/status"는 로그인 상태를 확인하는 백엔드 엔드포인트입니다.
+            // 백엔드에서 이에 대응하는 API를 구현해야 합니다.
+            const response = await axios.get('http://localhost:8080/member/auth/status', {
+                withCredentials: true
+            });
+            if (response.status === 200 && response.data.loggedIn) {
+                console.log("성공");
+                setIsLogin(true);
+            } else {
+                setIsLogin(false);
+            }
+        } catch (error) {
+            console.error('로그인 상태 확인 실패', error);
+            setIsLogin(false);
+        }
+    };
 
     const handleMenu = (e) => {
         setAnchorEl(e.currentTarget);
@@ -68,7 +92,6 @@ const Header = () => {
                 isLogin ? (
                     <div>
                         <IconButton
-                            // size="large"
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
@@ -98,7 +121,7 @@ const Header = () => {
                             <MenuItem onClick={() => handleNavigate('/cart')}>
                                 <StyledMenuItemText>장바구니</StyledMenuItemText>
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem >
                                 <StyledMenuItemText>로그아웃</StyledMenuItemText>
                             </MenuItem>
                         </Menu>

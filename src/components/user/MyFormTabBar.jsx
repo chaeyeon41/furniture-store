@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import "../../style/palette";
@@ -45,14 +45,29 @@ const TabItem = styled.div`
     }
     `
 
+const SET_TAB = 'SET_TAB' // 액션 타입 정의
+
+const reducer = (state, action) => { // 리듀서 함수
+    switch (action.type) {
+        case SET_TAB:
+            return {
+                ...state,
+                tabValue: action.index
+            }
+        default:
+            return state;
+    }
+}
+
 const MyFormTabBar = () => {
 
     const navigate = useNavigate();
-    const [tabValue, setTabValue] = useState(0);
+
+    const [state, dispatch] = useReducer(reducer, { tabValue: 0 });
 
     const handleChange = (index, path) => {
-        setTabValue(index);
         navigate(path);
+        dispatch({ type: SET_TAB, index });
     }
 
     return (
@@ -62,7 +77,7 @@ const MyFormTabBar = () => {
                     menuItemList.map((item, index) => (
                         <TabItem
                             key={index}
-                            isActive={tabValue === index}
+                            isActive={state.tabValue === index}
                             onClick={() => handleChange(index, item.path)}
                         >{item.title}</TabItem>
                     ))

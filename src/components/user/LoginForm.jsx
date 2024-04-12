@@ -4,34 +4,35 @@ import LockIcon from '@mui/icons-material/Lock';
 
 const LoginForm = () => {
 
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
-
     return (
         <div className="auth-form-container">
-            <div className="auth-form">
+            <form
+                className="auth-form"
+                action="http://localhost:8080/login"
+                method="POST"
+            >
                 <div className="input-form">
                     <PersonIcon className="icons" />
                     <input
+                        name="username"
                         type="text"
-                        key={'id'}
+                        required
                         placeholder="아이디"
-                        onChange={(e) => setId(e.target.value)}
                     />
                 </div>
                 <div className="input-form">
                     <LockIcon className="icons" />
                     <input
+                        name="password"
                         type="password"
+                        required
                         placeholder="비밀번호"
-                        key={'password'}
-                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <div className="auth-button">
+                <button type="submit" className="auth-button">
                     로그인
-                </div>
-            </div>
+                </button>
+            </form>
         </div>
     )
 }

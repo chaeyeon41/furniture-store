@@ -6,11 +6,15 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import PlaceIcon from '@mui/icons-material/Place';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import DaumPost from "../DaumPost";
 import axios from "axios";
 
 const SignUpForm = () => {
+
+    const navigate = useNavigate();
+
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -18,25 +22,26 @@ const SignUpForm = () => {
     const [address, setAddress] = useState('');
     const [detailAddress, setDetailAddress] = useState('');
 
-
     const [showPassword, setShowPassword] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [daumPostKey, setDaumPostKey] = useState(0);
 
-    const onClickSignUp = () => {
-        axios.post('http://localhost:8080/member', {
-            user_id: id,
-            user_pw: password,
-            user_name: name,
-            user_phone: phoneNum,
-            user_address: address,
-            user_detail_address: detailAddress,
-        })
-            .then((response) => {
-                console.log(response.data);
-                alert("가구사구에 회원가입을 축하합니다!");
-            })
-            .catch((error) => console.log(error));
+    const onClickSignUp = async () => {
+        try {
+            const response = await axios.post("http://localhost:8080/member", {
+                username: id,
+                password: password,
+                user_name: name,
+                user_phone: phoneNum,
+                user_address: address,
+                user_detail_address: detailAddress,
+            });
+            console.log(response.data);
+            alert("가구사구에 회원가입을 축하합니다!")
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const showModal = () => {
@@ -56,24 +61,6 @@ const SignUpForm = () => {
         setShowPassword(!showPassword);
     }
 
-    const onChange = (e, key) => {
-        let value = e.target.value;
-        if (key === 'id') {
-            setId(value);
-        } else if (key === 'password') {
-            setPassword(value);
-        } else if (key === 'name') {
-            setName(value);
-        } else if (key === 'phoneNum') {
-            value = value.replace(/\D/g, '');
-            setPhoneNum(value);
-        } else if (key === 'address') {
-            setAddress(value);
-        } else if (key === 'detailAddress') {
-            setDetailAddress(value);
-        }
-    };
-
     return (
         <div className="auth-form-container">
             <div className="auth-form">
@@ -83,7 +70,8 @@ const SignUpForm = () => {
                         type="text"
                         value={id}
                         placeholder="아이디"
-                        onChange={(e) => onChange(e, 'id')}
+                        required
+                        onChange={(e) => setId(e.target.value)}
                     />
                 </div>
                 <div className="input-form">
@@ -92,7 +80,8 @@ const SignUpForm = () => {
                         type={showPassword ? "text" : "password"}
                         value={password}
                         placeholder="비밀번호"
-                        onChange={(e) => onChange(e, 'password')}
+                        required
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     {
                         showPassword ?
@@ -111,7 +100,8 @@ const SignUpForm = () => {
                         type="text"
                         value={name}
                         placeholder="이름"
-                        onChange={(e) => onChange(e, 'name')}
+                        required
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
                 <div className="input-form">
@@ -120,7 +110,8 @@ const SignUpForm = () => {
                         mask="999-9999-9999"
                         placeholderChar=" "
                         value={phoneNum}
-                        onChange={(e) => onChange(e, 'phoneNum')}
+                        required
+                        onChange={(e) => setPhoneNum(e.target.value.replace(/\D/g, ''))}
                     >
                         {() => <input type="text" placeholder="전화번호" />}
                     </InputMask>
@@ -135,6 +126,7 @@ const SignUpForm = () => {
                         type="text"
                         className="address-form"
                         value={address}
+                        required
                         placeholder="주소"
                         readOnly
                     />
@@ -143,8 +135,9 @@ const SignUpForm = () => {
                     <input
                         type="text"
                         value={detailAddress}
+                        required
                         placeholder="상세주소"
-                        onChange={(e) => onChange(e, 'detailAddress')}
+                        onChange={(e) => setDetailAddress(e.target.value)}
                     />
                 </div>
                 <Modal title="주소 검색" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
@@ -157,7 +150,7 @@ const SignUpForm = () => {
                     회원가입
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
