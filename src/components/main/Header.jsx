@@ -7,6 +7,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+const Navbar = styled.div`
+`
+
 const HeaderContainer = styled.header`
     background: #F6EAC2;
     color: Black;
@@ -53,8 +56,6 @@ const Header = () => {
 
     const checkLoginStatus = async () => {
         try {
-            // "/auth/status"는 로그인 상태를 확인하는 백엔드 엔드포인트입니다.
-            // 백엔드에서 이에 대응하는 API를 구현해야 합니다.
             const response = await axios.get('http://localhost:8080/member/auth/status', {
                 withCredentials: true
             });
@@ -88,6 +89,20 @@ const Header = () => {
             <h2 className="main-icon">
                 <Link to={'/'} style={{ textDecoration: 'none', color: "black" }}>가구사구</Link>
             </h2>
+            <Navbar>
+                <MenuList2>
+                    <MenuItem2
+                        to={'/furniture'}
+                        className="link"
+                        currentPath={location.pathname}
+                    >가구쇼핑</MenuItem2>
+                    <MenuItem2
+                        to={'/furniture/regist'}
+                        className="link"
+                        currentPath={location.pathname}
+                    >가구등록</MenuItem2>
+                </MenuList2>
+            </Navbar>
             {
                 isLogin ? (
                     <div>

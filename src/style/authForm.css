@@ -85,5 +85,6 @@
 
     &:hover {
         cursor: pointer;
+        background-color: #FFA501;
     }
 }

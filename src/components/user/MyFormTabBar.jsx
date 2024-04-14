@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import "../../style/palette";
 import palette from '../../style/palette';
@@ -38,7 +38,7 @@ const TabItem = styled.div`
     font-size: 1.1rem;
     cursor: pointer;
     padding: 0.7rem;
-    color: ${(props) => (!props.isActive ? `black` : `${palette.hoverYellow}`)};
+    color: ${(props) => (props.currentPath === props.to ? `${palette.hoverYellow}` : 'black')};
 
     &:hover {
         color: ${palette.hoverYellow};
@@ -61,6 +61,7 @@ const reducer = (state, action) => { // 리듀서 함수
 
 const MyFormTabBar = () => {
 
+    const location = useLocation();
     const navigate = useNavigate();
 
     const [state, dispatch] = useReducer(reducer, { tabValue: 0 });
@@ -78,6 +79,8 @@ const MyFormTabBar = () => {
                         <TabItem
                             key={index}
                             isActive={state.tabValue === index}
+                            to={item.path}
+                            currentPath={location.pathname}
                             onClick={() => handleChange(index, item.path)}
                         >{item.title}</TabItem>
                     ))
