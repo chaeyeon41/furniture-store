@@ -7,7 +7,7 @@ import { frntList as initialFrntList } from '../../store/Furniture'
 const FrntListContainer = styled.div`
     padding: 0 1rem;
     width: 60%;
-    border: 1px solid gray;
+    // border: 1px solid gray;
     display: flex;
     flex-direction: column;
     .total-rstr-num {

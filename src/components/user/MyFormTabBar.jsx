@@ -20,6 +20,10 @@ const menuItemList = [
     {
         title: '찜',
         path: '/favorite'
+    },
+    {
+        title: '설정',
+        path: '/setting'
     }
 ];
 

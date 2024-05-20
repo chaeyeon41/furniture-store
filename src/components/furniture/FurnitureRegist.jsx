@@ -133,9 +133,7 @@ const FurnitureRegist = () => {
                 </Inputs>
                 <Inputs>
                     <div>정보</div>
-                    <Textarea
-
-                    />
+                    <Textarea />
                 </Inputs>
                 <Inputs>
                     <div>가격</div>
@@ -157,7 +155,7 @@ const FurnitureRegist = () => {
                 </Inputs>
                 <div
                     className="auth-button"
-                    onClick={onClickRegist}
+                    onClick={() => { navigate('/furniture'); }}
                 >
                     등록
                 </div>

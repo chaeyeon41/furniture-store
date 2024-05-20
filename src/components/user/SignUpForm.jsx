@@ -38,7 +38,7 @@ const SignUpForm = () => {
             });
             console.log(response.data);
             alert("가구사구에 회원가입을 축하합니다!")
-            navigate('/');
+            navigate('/login');
         } catch (error) {
             console.log(error);
         }

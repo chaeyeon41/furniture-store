@@ -6,6 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginData } from "../../pages/user/loginDataSlice";
 
 const Navbar = styled.div`
 `
@@ -45,10 +47,19 @@ const Header = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [isLogin, setIsLogin] = useState(false);
 
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const loginData = useSelector((state) =>
+        state.loginData
+    )
+
+    setTimeout(() => {
+        console.log(loginData);
+    }, 1000);
 
     useEffect(() => {
         checkLoginStatus();
@@ -61,6 +72,7 @@ const Header = () => {
             });
             if (response.status === 200 && response.data.loggedIn) {
                 console.log("성공");
+                dispatch(setLoginData(response.data));
                 setIsLogin(true);
             } else {
                 setIsLogin(false);
@@ -70,6 +82,19 @@ const Header = () => {
             setIsLogin(false);
         }
     };
+
+    const handleLogout = async () => {
+        try {
+            await axios.get('http://localhost:8080/logout', {
+                withCredentialsd: true,
+            });
+            setIsLogin(false);
+            navigate('/');
+        } catch (error) {
+            console.error('로그아웃 실패', error);
+        }
+        console.log("눌림요!");
+    }
 
     const handleMenu = (e) => {
         setAnchorEl(e.currentTarget);
@@ -136,7 +161,7 @@ const Header = () => {
                             <MenuItem onClick={() => handleNavigate('/cart')}>
                                 <StyledMenuItemText>장바구니</StyledMenuItemText>
                             </MenuItem>
-                            <MenuItem >
+                            <MenuItem onClick={() => handleLogout()} >
                                 <StyledMenuItemText>로그아웃</StyledMenuItemText>
                             </MenuItem>
                         </Menu>

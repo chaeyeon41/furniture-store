@@ -13,6 +13,8 @@ import FurnitureListPage from "./pages/furniture/FurnitureListPage";
 import FurnitureDetailPage from "./pages/furniture/FurnitureDetailPage";
 
 import Header from "./components/main/Header";
+import MySettingPage from "./pages/user/MySettingPage";
+
 function App() {
   return (
     <div className="App" style={{ fontFamily: 'Gmarket Sans Medium' }}>
@@ -25,7 +27,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/mypage" element={<MyPage />} />
-
+        <Route path="/setting" element={<MySettingPage />} />
         // 구매이력 조회 페이지
         <Route path="/history/purchase" element={<PurchaseHistoryPage />} />
         // 판매이력 조회 페이지

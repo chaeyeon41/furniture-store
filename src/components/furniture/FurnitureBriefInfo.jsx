@@ -5,7 +5,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import CallIcon from '@mui/icons-material/Call';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-
+import { useNavigate } from "react-router-dom";
 const FrntBriefInfoContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -75,10 +75,23 @@ const StyledBookmarkIcon = styled(BookmarkIcon)`
     margin-bottom: -8px;
 `;
 
+const Btn = styled.div`
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    background-color: ${palette.mainYellow};
+    box-shadow: 2px 1px 2px ${palette.gray};
+
+    &:hover {
+        cursor: pointer;
+    }
+`
+
 
 const FurnitureBriefInfo = ({ frntInfo }) => {
     // const [rstrInfo, setRstrInfo] = useState(rstrInfo);
     const [isFavoriate, setIsFavoriate] = useState(true);
+    const navigate = useNavigate();
 
     // useEffect(() => {
     //     setRstrInfo(rstrInfo);
@@ -100,7 +113,7 @@ const FurnitureBriefInfo = ({ frntInfo }) => {
                 <div>{frntInfo.frnt_price}</div>
             </FrntInfo>
             <FrntInfo>
-                <FrntInfoTitle>주소</FrntInfoTitle>
+                <FrntInfoTitle>거래주소</FrntInfoTitle>
                 <div>
                     <div>{frntInfo.frnt_address}</div>
                     <div>{frntInfo.frnt_detail_Address}</div>
@@ -117,6 +130,11 @@ const FurnitureBriefInfo = ({ frntInfo }) => {
                     </div>
                     <div className='favorite-count'>{10}</div>
                 </FavoriteButton>
+            </FrntInfos>
+            <FrntInfos style={{ justifyContent: 'flex-end' }}>
+                <Btn onClick={() => navigate('/history/purchase')}>
+                    구매하기
+                </Btn>
             </FrntInfos>
         </FrntBriefInfoContainer>
     )
