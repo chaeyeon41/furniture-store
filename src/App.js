@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import './App.css';
-import './style/authForm.css';
+import "./App.css";
+import "./style/authForm.css";
 import MainPage from "./pages/main/MainPage";
 import LoginPage from "./pages/user/LoginPage";
 import SignUpPage from "./pages/user/SignUpPage";
@@ -17,7 +17,7 @@ import MySettingPage from "./pages/user/MySettingPage";
 
 function App() {
   return (
-    <div className="App" style={{ fontFamily: 'Gmarket Sans Medium' }}>
+    <div className="App" style={{ fontFamily: "Gmarket Sans Medium" }}>
       <Helmet>
         <title>가구사구</title>
       </Helmet>
@@ -32,14 +32,12 @@ function App() {
         <Route path="/history/purchase" element={<PurchaseHistoryPage />} />
         // 판매이력 조회 페이지
         <Route path="/history/sales" element={<SalesHistoryPage />} />
-
         // 가구 목록 페이지
         <Route path="/furniture" element={<FurnitureListPage />} />
         // 가구 상세 페이지
         <Route path={`/furniture/:frnt_id`} element={<FurnitureDetailPage />} />
         // 가구 등록 페이지
         <Route path="/furniture/regist" element={<FurnitureRegistPage />} />
-
       </Routes>
     </div>
   );
